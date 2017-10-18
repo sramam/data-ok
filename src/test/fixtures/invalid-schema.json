@@ -1,0 +1,8 @@
+{
+  "title": "invalid schema",
+  "type": "object",
+  "properties": [
+    "string",
+    "number"
+  ]
+}

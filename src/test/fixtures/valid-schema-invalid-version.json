@@ -1,0 +1,20 @@
+{
+  "schema": "http://json-schema.org/draft-no-version/schema#",
+  "title": "Non-existant schema version for coverage",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "age": {
+      "description": "Age in years",
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": ["firstName", "lastName"],
+  "additionalProperties": false
+}
