@@ -59,6 +59,7 @@ export declare const isValid: (schema: any, data?: any) => Promise<boolean>;
 ## Development Tooling
 
 [Described here](./docs/DevTools.md)
+[Changelog](./CHANGELOG.md)
 
 ## License
 
