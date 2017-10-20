@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const engchk = require("runtime-engine-check");
 engchk();
 const program = require("commander");
-const chalk = require("chalk");
+const chalk_1 = require("chalk");
 const fs = require("fs");
 const a = require("awaiting");
 const readPkg = require("read-pkg-up");
@@ -43,11 +43,11 @@ Promise.resolve().then(() => __awaiter(this, void 0, void 0, function* () {
 })).then(input => {
     return _1.isValid(input.schema, input.data).then(() => {
         const msg = input.data ? `Data is valid` : `Schema is valid`;
-        console.log(chalk.green(msg));
+        console.log(chalk_1.default.green(msg));
     });
 }).catch(err => {
-    console.error(chalk.red(err.message));
+    console.error(chalk_1.default.red(err.message));
     if (err.errors) {
-        console.error(chalk.red(JSON.stringify(err.errors, null, 2)));
+        console.error(chalk_1.default.red(JSON.stringify(err.errors, null, 2)));
     }
 });
