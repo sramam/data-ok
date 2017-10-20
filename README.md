@@ -51,8 +51,8 @@ export declare const isValid: (schema: any, data?: any) => Promise<boolean>;
   Options:
 
     -V, --version          output the version number
-    -d, --data <data>      data to validate
-    -s, --schema <schema>  schema to use for validation
+    -d, --data <data>      data to validate {json, yaml}
+    -s, --schema <schema>  schema to use for validation {json, yaml}
     -h, --help             output usage information
 ```
 

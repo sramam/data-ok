@@ -13,32 +13,25 @@ const engchk = require("runtime-engine-check");
 engchk();
 const program = require("commander");
 const chalk_1 = require("chalk");
-const fs = require("fs");
-const a = require("awaiting");
+const fs_read_data_1 = require("fs-read-data");
 const readPkg = require("read-pkg-up");
 const _1 = require(".");
 const pkg = readPkg();
 program
     .version(pkg.version)
-    .option(`-d, --data <data>`, `data to validate`, null)
-    .option(`-s, --schema <schema>`, `schema to use for validation`, {})
+    .option(`-d, --data <data>`, `data to validate {json, yaml}`, null)
+    .option(`-s, --schema <schema>`, `schema to use for validation {json, yaml}`, null)
     .parse(process.argv);
+const JSON2 = j => JSON.stringify(j, null, 2);
 Promise.resolve().then(() => __awaiter(this, void 0, void 0, function* () {
-    const loadJson = (filename) => __awaiter(this, void 0, void 0, function* () {
-        if (filename) {
-            let contents;
-            try {
-                contents = yield a.callback(fs.readFile, filename, 'utf8');
-                return JSON.parse(contents);
-            }
-            catch (err) {
-                throw new Error(`Invalid JSON ${filename}. ${err.message}`);
-            }
-        }
-    });
+    if (!program.schema) {
+        throw new Error(`--schema not specified`);
+    }
+    const schema = yield fs_read_data_1.readFile(program.schema);
+    const data = program.data ? yield fs_read_data_1.readFile(program.data) : null;
     return {
-        schema: yield loadJson(program.schema),
-        data: yield loadJson(program.data)
+        schema,
+        data
     };
 })).then(input => {
     return _1.isValid(input.schema, input.data).then(() => {
@@ -48,6 +41,7 @@ Promise.resolve().then(() => __awaiter(this, void 0, void 0, function* () {
 }).catch(err => {
     console.error(chalk_1.default.red(err.message));
     if (err.errors) {
-        console.error(chalk_1.default.red(JSON.stringify(err.errors, null, 2)));
+        console.error(chalk_1.default.red(JSON2(err.errors)));
+        console.error(chalk_1.default.red(err.stack));
     }
 });

@@ -8,7 +8,7 @@ const JSON2 = j => JSON.stringify(j, null, 2);
 
 test('data-ok API schema-ok', async (t) => {
   try {
-    await isValid(fixtures.valid.schema, null);
+    await isValid(fixtures.valid.schema);
     t.pass();
   } catch (err) {
     t.fail(err.message);
@@ -142,6 +142,19 @@ test(`data-ok CLI invalid schema file`, async t => {
     });
   t.regex(
     result.stderr,
-    /Invalid JSON .*non-existant.yaml. ENOENT: no such file or directory.*/,
+    /ENOENT: no such file or directory, open .*non-existant.yaml.*/,
+    JSON2(result));
+});
+
+
+test(`data-ok CLI invalid schema file`, async t => {
+  const result = await execa(
+    'node',
+    [
+      'build/cli.js',
+    ]);
+  t.regex(
+    result.stderr,
+    /--schema not specified/,
     JSON2(result));
 });
