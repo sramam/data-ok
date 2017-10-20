@@ -3,7 +3,7 @@ import * as engchk from 'runtime-engine-check';
 engchk(); // checks node version matches spec in package.json
 
 import * as program from 'commander';
-import * as chalk from 'chalk';
+import { default as chalk } from 'chalk';
 import * as fs from 'fs';
 import * as a from 'awaiting';
 import * as readPkg from 'read-pkg-up';

@@ -1,6 +1,6 @@
 {
   "name": "data-ok",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Convenience API/CLI to dereference a json-schema and validate data",
   "keywords": [
     "json",
@@ -73,8 +73,9 @@
     ]
   },
   "devDependencies": {
+    "@types/chalk": "^0.4.31",
     "@types/circular-json": "^0.1.30",
-    "@types/node": "^8.0.44",
+    "@types/node": "^8.0.46",
     "@types/semver": "^5.3.31",
     "ava": "^0.22.0",
     "commitizen": "^2.9.6",
