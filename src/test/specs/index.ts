@@ -122,7 +122,6 @@ test('data-ok CLI schema-ok, data-ok', async (t) => {
   t.regex(result.stdout, /Data is valid/, JSON2(result));
 });
 
-
 test('data-ok CLI schema-fail', async (t) => {
   const result = await execa(
     'node',
