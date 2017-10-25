@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const engchk = require("runtime-engine-check");
 engchk();
-const ajv = require("ajv");
+const Ajv = require("ajv");
 const a = require("awaiting");
 const ajv04 = require('ajv/lib/refs/json-schema-draft-04.json');
 const deref = require('json-schema-deref');
@@ -30,20 +30,21 @@ function getVersion(schema) {
     const m = s.match(/.*draft-0(\d).*/);
     return m ? m[1] : null;
 }
-function getValidator(schema) {
-    const version = getVersion(schema);
-    const validator = version === '4' ? ajv(ajv04) : ajv();
-    validator.validateSchema(schema);
-    return validator.compile(schema);
-}
 exports.isValid = (schema, data = null) => __awaiter(this, void 0, void 0, function* () {
     const fullSchema = yield a.callback(deref, schema);
-    let validate;
-    validate = getValidator(fullSchema);
-    if (data) {
-        if (validate(data)) {
-            return true;
-        }
-        throw new SchemaError(`Invalid data`, validate.errors);
+    const ajv = new Ajv({
+        allErrors: true,
+        format: 'full',
+        verbose: true
+    });
+    if (getVersion(schema) === '4') {
+        ajv.addMetaSchema(ajv04);
     }
+    if (!ajv.validateSchema(fullSchema)) {
+        throw new SchemaError(`Invalid schema`, ajv.errors);
+    }
+    if (data && !ajv.validate(fullSchema, data)) {
+        throw new SchemaError(`Invalid data`, ajv.errors);
+    }
+    return true;
 });
