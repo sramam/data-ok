@@ -44,14 +44,39 @@ test('data-ok API schema-ok, data-ok', async (t) => {
 
 test('data-ok API schema-fail', async (t) => {
   try {
-    await isValid(fixtures.invalid.schema, null);
+    await isValid(fixtures.invalid.schema);
     t.fail('invalid *schema* passed validation!');
   } catch (err) {
     // console.log(err);
     t.regex(
       err.message,
-      /schema is invalid: data.properties should be object.*/,
-      err);
+      /Invalid schema/,
+      err.message);
+    t.deepEqual(
+      err.errors,
+      [{
+        keyword: 'type',
+        dataPath: '.properties',
+        schemaPath: '#/properties/properties/type',
+        params: {
+          type: 'object'
+        },
+        message: 'should be object',
+        schema: 'object',
+        parentSchema: {
+          type: 'object',
+          additionalProperties: {
+            $ref: '#'
+          },
+          default: {}
+        },
+        data: [
+          'string',
+          'number'
+        ]
+      }],
+      JSON2(err.errors)
+    );
   }
 });
 
@@ -112,7 +137,7 @@ test('data-ok CLI schema-fail', async (t) => {
   });
   t.regex(
     result.stderr,
-    /schema is invalid: data.properties should be object.*/,
+    /Invalid schema(.|[\n])*"message": "should be object".*/,
     JSON2(result));
 });
 
