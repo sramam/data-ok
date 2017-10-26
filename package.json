@@ -1,6 +1,6 @@
 {
   "name": "data-ok",
-  "version": "0.0.0-development",
+  "version": "1.0.2",
   "description": "Convenience API/CLI to dereference a json-schema and validate data",
   "keywords": [
     "json",
