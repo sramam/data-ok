@@ -9,6 +9,7 @@ node_js:
   - '8'
 before_script:
   - npm prune
+  - git diff
 script:
   - npm run prepush
     # get the coverage metrics to coveralls
