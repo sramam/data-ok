@@ -7,16 +7,16 @@ notifications:
 node_js:
   - '6'
   - '8'
+  - '9'
 before_script:
   - npm prune
   - git diff
 script:
   - npm run prepush
-    # get the coverage metrics to coveralls
-  - npm run coveralls-report
-after_failure:
   - git status
   - git diff
+    # get the coverage metrics to coveralls
+  - npm run coveralls-report
 after_success:
   - npm run semantic-release
 branches:

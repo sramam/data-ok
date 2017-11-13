@@ -12,6 +12,7 @@ import { isValid, SchemaError } from '.';
 const pkg = readPkg();
 program
   .version(pkg.version)
+  .description(`Validates data against schema, accepting both formatted as json/yaml. Both options are required.`)
   .option(`-d, --data <data>`, `data to validate {json, yaml}`, null)
   .option(`-s, --schema <schema>`, `schema to use for validation {json, yaml}`, null)
   .parse(process.argv);
