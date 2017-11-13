@@ -46,7 +46,7 @@
     "pkg-ok": "pkg-ok",
     "precommit": "run-batch",
     "prepush": "run-batch",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "cross-env NPM_CONFIG_LOGLEVEL=debug semantic-release pre && npm publish && semantic-release post"
   },
   "run-batch": {
     "build": [
